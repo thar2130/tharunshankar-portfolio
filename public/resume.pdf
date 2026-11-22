@@ -1,0 +1,61 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+5 0 obj
+<< /Length 580 >>
+stream
+BT
+/F1 22 Tf
+50 720 Td
+(THARUNSHANKAR S - RESUME) Tj
+/F1 11 Tf
+0 -26 Td
+(Full-Stack Software Engineer | TypeScript - Node.js - React - AI Systems) Tj
+0 -18 Td
+(Contact: tharund2108@gmail.com | +91 6382209718 | linkedin.com/in/tharun) Tj
+0 -30 Td
+(SUMMARY:) Tj
+0 -18 Td
+(Full-stack engineer with 2+ years experience building TypeScript/React apps and) Tj
+0 -15 Td
+(secure, scalable REST APIs & distributed backend services for enterprise systems.) Tj
+0 -30 Td
+(EXPERIENCE:) Tj
+0 -18 Td
+(- Developer II, UST (Aug 2026 - Present): EDI Development, REST APIs, Claude AI) Tj
+0 -18 Td
+(- Developer I, UST (Sep 2024 - Aug 2026): React.js, TypeScript, Distributed Data Flows) Tj
+0 -30 Td
+(EDUCATION:) Tj
+0 -18 Td
+(- B.E. Computer Science, Chennai Institute of Technology (2020-2024)) Tj
+0 -30 Td
+(CERTIFICATIONS:) Tj
+0 -18 Td
+(- Claude Certified Developer, Generative AI, Prompt Engineering, SQL, Python) Tj
+ET
+endstream
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000227 00000 n 
+0000000305 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+940
+%%EOF

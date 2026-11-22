@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <radialGradient id="electricGlow" cx="20%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#C6FF3D" stop-opacity="0.25"/>
+      <stop offset="60%" stop-color="#7C5CFF" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#0A0A0B" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#C6FF3D"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#0A0A0B"/>
+  <rect width="1200" height="630" fill="url(#electricGlow)"/>
+
+  <!-- Subtle Grid Lines -->
+  <g stroke="#23232A" stroke-width="1" opacity="0.4">
+    <line x1="80" y1="0" x2="80" y2="630"/>
+    <line x1="1120" y1="0" x2="1120" y2="630"/>
+    <line x1="0" y1="80" x2="1200" y2="80"/>
+    <line x1="0" y1="550" x2="1200" y2="550"/>
+  </g>
+
+  <!-- Monogram Badge -->
+  <rect x="80" y="80" width="60" height="60" rx="14" fill="#121216" stroke="#2E2E38" stroke-width="1.5"/>
+  <text x="110" y="118" font-family="monospace" font-size="20" font-weight="bold" fill="#C6FF3D" text-anchor="middle">TS</text>
+
+  <!-- Tagline Badge -->
+  <rect x="160" y="90" width="280" height="40" rx="20" fill="#16161C" stroke="#23232A"/>
+  <circle cx="180" cy="110" r="4" fill="#C6FF3D"/>
+  <text x="195" y="115" font-family="sans-serif" font-size="13" font-weight="600" fill="#A1A1AA" letter-spacing="1">FULL-STACK &amp; AI-NATIVE</text>
+
+  <!-- Main Headline -->
+  <text x="80" y="270" font-family="'Syne', 'Arial Black', sans-serif" font-size="78" font-weight="800" fill="#F4F4F6" letter-spacing="-2">THARUNSHANKAR S</text>
+  
+  <text x="80" y="340" font-family="'JetBrains Mono', monospace" font-size="28" font-weight="500" fill="#C6FF3D">
+    TypeScript · Node.js · React · Distributed Systems
+  </text>
+
+  <text x="80" y="410" font-family="'Plus Jakarta Sans', sans-serif" font-size="20" fill="#A1A1AA" width="900">
+    Award-quality portfolio featuring scroll-driven GSAP timelines, Lenis physics,
+  </text>
+  <text x="80" y="445" font-family="'Plus Jakarta Sans', sans-serif" font-size="20" fill="#A1A1AA" width="900">
+    Three.js kinetic particles, and real-time enterprise telemetry showcases.
+  </text>
+
+  <!-- Footer Info -->
+  <line x1="80" y1="490" x2="1120" y2="490" stroke="#23232A" stroke-width="1"/>
+  
+  <text x="80" y="525" font-family="monospace" font-size="14" fill="#71717A">
+    LOCATION: TRIVANDRUM / CHENNAI · OPEN TO RELOCATION
+  </text>
+  <text x="1120" y="525" font-family="monospace" font-size="14" fill="#C6FF3D" text-anchor="end">
+    CLAUDE CERTIFIED DEVELOPER
+  </text>
+</svg>
