@@ -11,8 +11,11 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
   const curtainTopRef = useRef<HTMLDivElement | null>(null);
   const curtainBottomRef = useRef<HTMLDivElement | null>(null);
   const centerContentRef = useRef<HTMLDivElement | null>(null);
-  const ring1Ref = useRef<SVGCircleElement | null>(null);
-  const ring2Ref = useRef<SVGCircleElement | null>(null);
+
+  // Group refs for concentric orbital rings
+  const outerRingGroupRef = useRef<SVGGElement | null>(null);
+  const innerRingGroupRef = useRef<SVGGElement | null>(null);
+  const coreMonogramGroupRef = useRef<SVGGElement | null>(null);
   const monogramPath1 = useRef<SVGPathElement | null>(null);
   const monogramPath2 = useRef<SVGPathElement | null>(null);
   const titleLettersRef = useRef<HTMLDivElement | null>(null);
@@ -35,10 +38,10 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
         });
 
         exitTl.to(centerContentRef.current, {
-          scale: 1.15,
+          scale: 1.12,
           opacity: 0,
-          filter: 'blur(8px)',
-          duration: 0.5,
+          filter: 'blur(10px)',
+          duration: 0.45,
           ease: 'power3.in'
         });
 
@@ -46,7 +49,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
           [curtainTopRef.current, curtainBottomRef.current],
           {
             scaleY: 0,
-            duration: 0.9,
+            duration: 0.85,
             ease: 'expo.inOut',
             stagger: 0.08
           },
@@ -60,23 +63,53 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
       }
     });
 
-    // 1. Initial State
+    // 1. Initial State Setup
     gsap.set([monogramPath1.current, monogramPath2.current], {
-      strokeDasharray: 200,
-      strokeDashoffset: 200
+      strokeDasharray: 240,
+      strokeDashoffset: 240
     });
 
-    // 2. Animated Sequence (Duration ~1.9s)
+    // 2. Animated Sequence (Duration ~1.85s)
+    // Both rings scale smoothly together from 0.85 to 1.0 around the EXACT same SVG origin (60, 60)
     masterTl
       .fromTo(
-        ring1Ref.current,
-        { rotation: 0, scale: 0.8, opacity: 0 },
-        { rotation: 360, scale: 1, opacity: 1, duration: 1.2, ease: 'power2.out', transformOrigin: 'center' }
+        outerRingGroupRef.current,
+        { rotation: 0, scale: 0.85, opacity: 0 },
+        {
+          rotation: 360,
+          scale: 1,
+          opacity: 1,
+          duration: 1.3,
+          ease: 'power2.out',
+          svgOrigin: '60 60',
+          transformOrigin: '60px 60px'
+        }
       )
       .fromTo(
-        ring2Ref.current,
-        { rotation: 0, scale: 1.2, opacity: 0 },
-        { rotation: -360, scale: 1, opacity: 0.7, duration: 1.2, ease: 'power2.out', transformOrigin: 'center' },
+        innerRingGroupRef.current,
+        { rotation: 0, scale: 0.85, opacity: 0 },
+        {
+          rotation: -360,
+          scale: 1,
+          opacity: 0.85,
+          duration: 1.3,
+          ease: 'power2.out',
+          svgOrigin: '60 60',
+          transformOrigin: '60px 60px'
+        },
+        '<0.05'
+      )
+      .fromTo(
+        coreMonogramGroupRef.current,
+        { scale: 0.7, opacity: 0 },
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 0.8,
+          ease: 'back.out(1.8)',
+          svgOrigin: '60 60',
+          transformOrigin: '60px 60px'
+        },
         '<0.1'
       )
       .to(
@@ -85,34 +118,38 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
           strokeDashoffset: 0,
           duration: 0.9,
           ease: 'power3.inOut',
-          stagger: 0.15
+          stagger: 0.12
         },
-        '<0.2'
+        '<0.15'
       )
       .fromTo(
         titleLettersRef.current?.querySelectorAll('.preload-char') || [],
-        { y: 30, opacity: 0, rotateX: -90 },
+        { y: 25, opacity: 0, rotateX: -90 },
         {
           y: 0,
           opacity: 1,
           rotateX: 0,
-          stagger: 0.025,
+          stagger: 0.022,
           duration: 0.7,
-          ease: 'back.out(1.7)'
+          ease: 'back.out(1.6)'
         },
-        '<0.3'
+        '<0.25'
       )
-      .to('.preload-equalizer-bar', {
-        scaleY: 'random(0.3, 1.8)',
-        repeat: 3,
-        yoyo: true,
-        duration: 0.25,
-        stagger: 0.05,
-        ease: 'sine.inOut'
-      }, '<0.2')
+      .to(
+        '.preload-equalizer-bar',
+        {
+          scaleY: 'random(0.3, 1.8)',
+          repeat: 3,
+          yoyo: true,
+          duration: 0.22,
+          stagger: 0.04,
+          ease: 'sine.inOut'
+        },
+        '<0.2'
+      )
       .to(centerContentRef.current, {
-        scale: 1.05,
-        duration: 0.4,
+        scale: 1.04,
+        duration: 0.35,
         ease: 'power2.out'
       });
 
@@ -147,9 +184,9 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
         ref={centerContentRef}
         className="relative z-20 w-full h-full flex flex-col items-center justify-center p-8 text-center my-auto"
       >
-        {/* Animated Geometric Vector Emblem */}
-        <div className="relative w-32 h-32 sm:w-40 sm:h-40 flex items-center justify-center mb-8">
-          {/* Ambient Glow */}
+        {/* Animated Concentric Vector Emblem (Mathematically Centered at 60, 60) */}
+        <div className="relative w-36 h-36 sm:w-44 sm:h-44 flex items-center justify-center mb-8">
+          {/* Ambient Radial Core Glow */}
           <div
             aria-hidden="true"
             className="absolute inset-0 bg-electric-lime/20 rounded-full blur-2xl animate-pulse"
@@ -161,54 +198,86 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            {/* Outer Rotating Dashed Ring */}
-            <circle
-              ref={ring1Ref}
-              cx="60"
-              cy="60"
-              r="52"
-              stroke="#C6FF3D"
-              strokeWidth="1.5"
-              strokeDasharray="12 8"
-              strokeOpacity="0.8"
-            />
+            {/* Outer Orbital Ring Group (Radius: 50, Center: 60,60) */}
+            <g
+              ref={outerRingGroupRef}
+              style={{ transformOrigin: '60px 60px' }}
+            >
+              {/* Outer Dashed Ring */}
+              <circle
+                cx="60"
+                cy="60"
+                r="50"
+                stroke="#C6FF3D"
+                strokeWidth="1.8"
+                strokeDasharray="14 8"
+                strokeOpacity="0.85"
+              />
+              {/* Synchronized Orbiting Nodes on the Outer Ring */}
+              <circle cx="60" cy="10" r="3.5" fill="#C6FF3D" />
+              <circle cx="60" cy="110" r="2.5" fill="#38BDF8" />
+              <circle cx="10" cy="60" r="2" fill="#C6FF3D" opacity="0.6" />
+              <circle cx="110" cy="60" r="2" fill="#C6FF3D" opacity="0.6" />
+            </g>
 
-            {/* Inner Counter-Rotating Ring */}
-            <circle
-              ref={ring2Ref}
-              cx="60"
-              cy="60"
-              r="44"
-              stroke="#7C5CFF"
-              strokeWidth="1"
-              strokeDasharray="6 6"
-              strokeOpacity="0.6"
-            />
+            {/* Inner Counter-Rotating Ring Group (Radius: 38, Center: 60,60) */}
+            <g
+              ref={innerRingGroupRef}
+              style={{ transformOrigin: '60px 60px' }}
+            >
+              {/* Inner Dashed Ring */}
+              <circle
+                cx="60"
+                cy="60"
+                r="38"
+                stroke="#7C5CFF"
+                strokeWidth="1.5"
+                strokeDasharray="8 6"
+                strokeOpacity="0.75"
+              />
+              {/* Synchronized Orbiting Nodes on the Inner Ring */}
+              <circle cx="22" cy="60" r="2.8" fill="#7C5CFF" />
+              <circle cx="98" cy="60" r="2.8" fill="#C6FF3D" />
+              <circle cx="60" cy="22" r="1.8" fill="#38BDF8" opacity="0.8" />
+              <circle cx="60" cy="98" r="1.8" fill="#7C5CFF" opacity="0.8" />
+            </g>
 
-            {/* Glowing Accent Dots */}
-            <circle cx="60" cy="8" r="3" fill="#C6FF3D" />
-            <circle cx="60" cy="112" r="2.5" fill="#38BDF8" />
+            {/* Center Monogram Core Group (Optically Centered at 60, 60) */}
+            <g
+              ref={coreMonogramGroupRef}
+              style={{ transformOrigin: '60px 60px' }}
+            >
+              {/* Subtle Center Target Ring */}
+              <circle
+                cx="60"
+                cy="60"
+                r="26"
+                stroke="#FFFFFF"
+                strokeWidth="0.75"
+                strokeDasharray="3 3"
+                strokeOpacity="0.25"
+              />
 
-            {/* Vector T & S Monogram Line Draw */}
-            {/* T Bar */}
-            <path
-              ref={monogramPath1}
-              d="M 38 46 L 82 46 M 60 46 L 60 84"
-              stroke="#F4F4F6"
-              strokeWidth="4"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
+              {/* T Monogram Vector: Top Crossbar + Stem */}
+              <path
+                ref={monogramPath1}
+                d="M 42 47 L 78 47 M 60 47 L 60 75"
+                stroke="#FFFFFF"
+                strokeWidth="3.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
 
-            {/* Interlocking S Curve */}
-            <path
-              ref={monogramPath2}
-              d="M 76 56 C 76 50 68 48 60 48 C 50 48 48 54 48 58 C 48 68 76 67 76 76 C 76 84 68 85 58 85 C 48 85 46 80 46 76"
-              stroke="#C6FF3D"
-              strokeWidth="3.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
+              {/* S Monogram Vector: Fluid Intertwining Cyber Curve */}
+              <path
+                ref={monogramPath2}
+                d="M 74 54 C 74 49 68 49 60 49 C 50 49 48 54 48 59 C 48 68 72 67 72 75 C 72 82 66 83 58 83 C 48 83 46 78 46 74"
+                stroke="#C6FF3D"
+                strokeWidth="3.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </g>
           </svg>
         </div>
 

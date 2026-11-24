@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { PORTFOLIO_CONTENT } from '../data/content';
 import { ThreeHeroCanvas } from '../components/ThreeHeroCanvas';
-import { useMousePosition } from '../hooks/useMousePosition';
 import { MagneticButton } from '../components/MagneticButton';
 import { ArrowDown, Download, Sparkles, Terminal, Mail } from 'lucide-react';
 import confetti from 'canvas-confetti';
@@ -12,7 +11,6 @@ interface HeroSectionProps {
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ onShowToast }) => {
-  const mousePosition = useMousePosition();
   const headlineRef = useRef<HTMLHeadingElement | null>(null);
   const roleIndexRef = useRef(0);
   const [currentRole, setCurrentRole] = useState(PORTFOLIO_CONTENT.personal.rotatingRoles[0]);
@@ -74,7 +72,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShowToast }) => {
       className="relative min-h-screen w-full flex flex-col justify-between pt-28 pb-12 px-6 sm:px-12 md:px-16 overflow-hidden bg-dark-bg"
     >
       {/* 3D Background Canvas */}
-      <ThreeHeroCanvas mousePosition={mousePosition} />
+      <ThreeHeroCanvas />
 
       {/* Subtle radial ambient gradients */}
       <div
