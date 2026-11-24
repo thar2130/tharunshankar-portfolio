@@ -12,10 +12,10 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
   const curtainBottomRef = useRef<HTMLDivElement | null>(null);
   const centerContentRef = useRef<HTMLDivElement | null>(null);
 
-  // Group refs for concentric orbital rings
-  const outerRingGroupRef = useRef<SVGGElement | null>(null);
-  const innerRingGroupRef = useRef<SVGGElement | null>(null);
-  const coreMonogramGroupRef = useRef<SVGGElement | null>(null);
+  // Concentric HTML layer refs (guarantees 100% center alignment across all browsers)
+  const outerRingRef = useRef<HTMLDivElement | null>(null);
+  const innerRingRef = useRef<HTMLDivElement | null>(null);
+  const monogramRef = useRef<HTMLDivElement | null>(null);
   const monogramPath1 = useRef<SVGPathElement | null>(null);
   const monogramPath2 = useRef<SVGPathElement | null>(null);
   const titleLettersRef = useRef<HTMLDivElement | null>(null);
@@ -69,46 +69,40 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
       strokeDashoffset: 240
     });
 
-    // 2. Animated Sequence (Duration ~1.85s)
-    // Both rings scale smoothly together from 0.85 to 1.0 around the EXACT same SVG origin (60, 60)
+    // 2. Animated Sequence (~1.85s)
+    // Animates HTML layer transforms - 100% centered with transform-origin: 50% 50%
     masterTl
       .fromTo(
-        outerRingGroupRef.current,
+        outerRingRef.current,
         { rotation: 0, scale: 0.85, opacity: 0 },
         {
           rotation: 360,
           scale: 1,
           opacity: 1,
           duration: 1.3,
-          ease: 'power2.out',
-          svgOrigin: '60 60',
-          transformOrigin: '60px 60px'
+          ease: 'power2.out'
         }
       )
       .fromTo(
-        innerRingGroupRef.current,
+        innerRingRef.current,
         { rotation: 0, scale: 0.85, opacity: 0 },
         {
           rotation: -360,
           scale: 1,
           opacity: 0.85,
           duration: 1.3,
-          ease: 'power2.out',
-          svgOrigin: '60 60',
-          transformOrigin: '60px 60px'
+          ease: 'power2.out'
         },
         '<0.05'
       )
       .fromTo(
-        coreMonogramGroupRef.current,
+        monogramRef.current,
         { scale: 0.7, opacity: 0 },
         {
           scale: 1,
           opacity: 1,
           duration: 0.8,
-          ease: 'back.out(1.8)',
-          svgOrigin: '60 60',
-          transformOrigin: '60px 60px'
+          ease: 'back.out(1.8)'
         },
         '<0.1'
       )
@@ -116,7 +110,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
         [monogramPath1.current, monogramPath2.current],
         {
           strokeDashoffset: 0,
-          duration: 0.9,
+          duration: 0.85,
           ease: 'power3.inOut',
           stagger: 0.12
         },
@@ -184,101 +178,92 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
         ref={centerContentRef}
         className="relative z-20 w-full h-full flex flex-col items-center justify-center p-8 text-center my-auto"
       >
-        {/* Animated Concentric Vector Emblem (Mathematically Centered at 60, 60) */}
+        {/* Concentric Double Circle Emblem (100% Mathematically Locked to Center) */}
         <div className="relative w-36 h-36 sm:w-44 sm:h-44 flex items-center justify-center mb-8">
-          {/* Ambient Radial Core Glow */}
+          {/* Ambient Core Glow */}
           <div
             aria-hidden="true"
             className="absolute inset-0 bg-electric-lime/20 rounded-full blur-2xl animate-pulse"
           />
 
-          <svg
-            viewBox="0 0 120 120"
-            className="w-full h-full overflow-visible"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+          {/* 1. Outer Rotating Orbital Ring */}
+          <div
+            ref={outerRingRef}
+            className="absolute inset-0 flex items-center justify-center pointer-events-none"
           >
-            {/* Outer Orbital Ring Group (Radius: 50, Center: 60,60) */}
-            <g
-              ref={outerRingGroupRef}
-              style={{ transformOrigin: '60px 60px' }}
-            >
-              {/* Outer Dashed Ring */}
+            <svg viewBox="0 0 160 160" className="w-full h-full" fill="none">
               <circle
-                cx="60"
-                cy="60"
-                r="50"
+                cx="80"
+                cy="80"
+                r="72"
                 stroke="#C6FF3D"
-                strokeWidth="1.8"
-                strokeDasharray="14 8"
+                strokeWidth="2"
+                strokeDasharray="16 10"
                 strokeOpacity="0.85"
               />
-              {/* Synchronized Orbiting Nodes on the Outer Ring */}
-              <circle cx="60" cy="10" r="3.5" fill="#C6FF3D" />
-              <circle cx="60" cy="110" r="2.5" fill="#38BDF8" />
-              <circle cx="10" cy="60" r="2" fill="#C6FF3D" opacity="0.6" />
-              <circle cx="110" cy="60" r="2" fill="#C6FF3D" opacity="0.6" />
-            </g>
+              {/* Synchronized Orbiting Nodes on Outer Ring */}
+              <circle cx="80" cy="8" r="4.5" fill="#C6FF3D" />
+              <circle cx="80" cy="152" r="3.5" fill="#38BDF8" />
+              <circle cx="8" cy="80" r="3" fill="#C6FF3D" opacity="0.6" />
+              <circle cx="152" cy="80" r="3" fill="#C6FF3D" opacity="0.6" />
+            </svg>
+          </div>
 
-            {/* Inner Counter-Rotating Ring Group (Radius: 38, Center: 60,60) */}
-            <g
-              ref={innerRingGroupRef}
-              style={{ transformOrigin: '60px 60px' }}
-            >
-              {/* Inner Dashed Ring */}
+          {/* 2. Inner Counter-Rotating Ring (Concentric Inset) */}
+          <div
+            ref={innerRingRef}
+            className="absolute inset-3 sm:inset-4 flex items-center justify-center pointer-events-none"
+          >
+            <svg viewBox="0 0 120 120" className="w-full h-full" fill="none">
               <circle
                 cx="60"
                 cy="60"
-                r="38"
+                r="54"
                 stroke="#7C5CFF"
-                strokeWidth="1.5"
-                strokeDasharray="8 6"
-                strokeOpacity="0.75"
+                strokeWidth="1.8"
+                strokeDasharray="10 8"
+                strokeOpacity="0.8"
               />
-              {/* Synchronized Orbiting Nodes on the Inner Ring */}
-              <circle cx="22" cy="60" r="2.8" fill="#7C5CFF" />
-              <circle cx="98" cy="60" r="2.8" fill="#C6FF3D" />
-              <circle cx="60" cy="22" r="1.8" fill="#38BDF8" opacity="0.8" />
-              <circle cx="60" cy="98" r="1.8" fill="#7C5CFF" opacity="0.8" />
-            </g>
+              {/* Synchronized Orbiting Nodes on Inner Ring */}
+              <circle cx="6" cy="60" r="3.5" fill="#7C5CFF" />
+              <circle cx="114" cy="60" r="3.5" fill="#C6FF3D" />
+              <circle cx="60" cy="6" r="2.5" fill="#38BDF8" />
+              <circle cx="60" cy="114" r="2.5" fill="#7C5CFF" />
+            </svg>
+          </div>
 
-            {/* Center Monogram Core Group (Optically Centered at 60, 60) */}
-            <g
-              ref={coreMonogramGroupRef}
-              style={{ transformOrigin: '60px 60px' }}
-            >
-              {/* Subtle Center Target Ring */}
-              <circle
-                cx="60"
-                cy="60"
-                r="26"
-                stroke="#FFFFFF"
-                strokeWidth="0.75"
-                strokeDasharray="3 3"
-                strokeOpacity="0.25"
-              />
+          {/* 3. Center Monogram & Target (Pinned Dead-Center at 50% 50%) */}
+          <div
+            ref={monogramRef}
+            className="absolute inset-0 flex items-center justify-center pointer-events-none"
+          >
+            <div className="relative w-20 h-20 sm:w-24 sm:h-24 flex items-center justify-center">
+              {/* Center Target Dash Ring */}
+              <div className="absolute inset-0 rounded-full border border-dashed border-white/25" />
 
-              {/* T Monogram Vector: Top Crossbar + Stem */}
-              <path
-                ref={monogramPath1}
-                d="M 42 47 L 78 47 M 60 47 L 60 75"
-                stroke="#FFFFFF"
-                strokeWidth="3.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-
-              {/* S Monogram Vector: Fluid Intertwining Cyber Curve */}
-              <path
-                ref={monogramPath2}
-                d="M 74 54 C 74 49 68 49 60 49 C 50 49 48 54 48 59 C 48 68 72 67 72 75 C 72 82 66 83 58 83 C 48 83 46 78 46 74"
-                stroke="#C6FF3D"
-                strokeWidth="3.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </g>
-          </svg>
+              {/* Symmetrical Vector TS Monogram */}
+              <svg viewBox="0 0 80 80" className="w-14 h-14 sm:w-16 sm:h-16" fill="none">
+                {/* T Monogram */}
+                <path
+                  ref={monogramPath1}
+                  d="M 18 24 L 62 24 M 40 24 L 40 58"
+                  stroke="#FFFFFF"
+                  strokeWidth="4"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                {/* S Monogram */}
+                <path
+                  ref={monogramPath2}
+                  d="M 58 33 C 58 26 50 26 40 26 C 28 26 25 33 25 40 C 25 52 55 50 55 61 C 55 70 47 71 37 71 C 25 71 22 64 22 59"
+                  stroke="#C6FF3D"
+                  strokeWidth="3.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+          </div>
         </div>
 
         {/* Animated Letter-by-Letter Typography */}
