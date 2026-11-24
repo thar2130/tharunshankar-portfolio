@@ -89,8 +89,8 @@ export const PORTFOLIO_CONTENT = {
       websiteDisplay: "tharunprof.dev",
       linkedin: "https://www.linkedin.com/in/tharuns21/",
       linkedinDisplay: "linkedin.com/in/tharun",
-      github: "https://github.com/tharunshankar",
-      githubDisplay: "github.com/tharunshankar"
+      github: "https://github.com/thar2130",
+      githubDisplay: "github.com/thar2130"
     },
     resumePath: "/resume.pdf",
     shortBio: "Building high-throughput distributed backends, resilient REST APIs, and immersive React applications with modern AI tooling."
@@ -416,8 +416,8 @@ export const PORTFOLIO_CONTENT = {
       },
       {
         name: "GitHub",
-        handle: "tharunshankar",
-        url: "https://github.com/tharunshankar"
+        handle: "thar2130",
+        url: "https://github.com/thar2130"
       },
       {
         name: "Email Direct",

@@ -56,7 +56,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onShowToast }) => {
   const navLinks = [
     { label: 'Overview', href: '#bento', external: false },
     { label: 'Stack', href: '#skills', external: false },
-    { label: 'Works (GitHub)', href: 'https://github.com/tharunshankar', external: true },
+    { label: 'Works (GitHub)', href: 'https://github.com/thar2130', external: true },
     { label: 'Contact', href: '#contact', external: false }
   ];
 
