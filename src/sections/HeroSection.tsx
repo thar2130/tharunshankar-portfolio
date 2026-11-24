@@ -3,14 +3,13 @@ import gsap from 'gsap';
 import { PORTFOLIO_CONTENT } from '../data/content';
 import { ThreeHeroCanvas } from '../components/ThreeHeroCanvas';
 import { MagneticButton } from '../components/MagneticButton';
-import { ArrowDown, Download, Sparkles, Terminal, Mail } from 'lucide-react';
-import confetti from 'canvas-confetti';
+import { ArrowDown, Sparkles, Terminal, Mail } from 'lucide-react';
 
 interface HeroSectionProps {
-  onShowToast: (title: string, message?: string) => void;
+  onShowToast?: (title: string, message?: string) => void;
 }
 
-export const HeroSection: React.FC<HeroSectionProps> = ({ onShowToast }) => {
+export const HeroSection: React.FC<HeroSectionProps> = () => {
   const headlineRef = useRef<HTMLHeadingElement | null>(null);
   const roleIndexRef = useRef(0);
   const [currentRole, setCurrentRole] = useState(PORTFOLIO_CONTENT.personal.rotatingRoles[0]);
@@ -56,15 +55,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShowToast }) => {
     };
   }, []);
 
-  const handleResumeClick = () => {
-    confetti({
-      particleCount: 70,
-      spread: 55,
-      origin: { y: 0.7 },
-      colors: ['#C6FF3D', '#7C5CFF', '#FFFFFF']
-    });
-    onShowToast('Resume Download Triggered', 'Opening Tharunshankar_S_Resume.pdf');
-  };
 
   return (
     <section
@@ -158,20 +148,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShowToast }) => {
             <ArrowDown size={15} className="group-hover:translate-y-1 transition-transform" />
           </MagneticButton>
 
-          <MagneticButton
-            onClick={handleResumeClick}
-            className="px-6 py-3.5 rounded-full bg-dark-card border border-dark-border hover:border-electric-lime/60 text-white font-mono text-xs sm:text-sm tracking-wider uppercase transition-all duration-300 shadow-lg group"
-            data-cursor="hover"
-          >
-            <a
-              href={PORTFOLIO_CONTENT.personal.resumePath}
-              download="Tharunshankar_S_Resume.pdf"
-              className="flex items-center gap-2"
-            >
-              <Download size={15} className="text-electric-lime group-hover:-translate-y-0.5 transition-transform" />
-              <span>Download Resume</span>
-            </a>
-          </MagneticButton>
 
           <MagneticButton
             onClick={() => {

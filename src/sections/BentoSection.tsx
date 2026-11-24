@@ -50,6 +50,7 @@ export const BentoSection: React.FC<BentoSectionProps> = ({ onShowToast }) => {
       colors: ['#C6FF3D', '#7C5CFF', '#38BDF8']
     });
     onShowToast('Navigating to GitHub Works', 'Opening github.com/thar2130');
+    window.open('https://github.com/thar2130', '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -138,16 +139,11 @@ export const BentoSection: React.FC<BentoSectionProps> = ({ onShowToast }) => {
                   data-cursor="view"
                   className="w-full sm:w-auto px-8 py-4 rounded-full bg-electric-lime text-black font-mono text-sm font-bold tracking-wider uppercase hover:bg-white transition-all duration-300 shadow-2xl flex items-center justify-center gap-3 group/btn"
                 >
-                  <a
-                    href="https://github.com/thar2130"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2.5"
-                  >
-                    <Github size={18} />
+                  <span className="flex items-center gap-2.5">
+                    <Github size={18} className="group-hover/btn:rotate-12 transition-transform" />
                     <span>Explore GitHub Codebases</span>
                     <ArrowUpRight size={18} className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
-                  </a>
+                  </span>
                 </MagneticButton>
                 <span className="text-[11px] font-mono text-typography-muted">
                   LIVE REPOSITORIES // UPDATED CONTINUOUSLY

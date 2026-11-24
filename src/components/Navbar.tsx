@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { PORTFOLIO_CONTENT } from '../data/content';
-import { MagneticButton } from './MagneticButton';
-import { Download, Menu, X } from 'lucide-react';
-import confetti from 'canvas-confetti';
+import { Menu, X } from 'lucide-react';
 
 interface NavbarProps {
   onShowToast: (title: string, message?: string) => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onShowToast }) => {
+export const Navbar: React.FC<NavbarProps> = () => {
   const [time, setTime] = useState<string>('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -41,17 +39,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onShowToast }) => {
     };
   }, []);
 
-  const handleDownloadResume = () => {
-    // Confetti burst
-    confetti({
-      particleCount: 80,
-      spread: 60,
-      origin: { y: 0.15 },
-      colors: ['#C6FF3D', '#7C5CFF', '#FFFFFF']
-    });
-
-    onShowToast('Resume Download Triggered', 'Viewing Tharunshankar_S_Resume.pdf');
-  };
 
   const navLinks = [
     { label: 'Overview', href: '#bento', external: false },
@@ -110,26 +97,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onShowToast }) => {
         {/* Right Action Buttons */}
         <div className="flex items-center gap-3">
           {/* Status Badge */}
-          <div className="hidden xl:flex items-center gap-2 px-3 py-1 rounded-full bg-electric-lime/10 border border-electric-lime/20 text-electric-lime text-[11px] font-mono">
+          <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-electric-lime/10 border border-electric-lime/20 text-electric-lime text-[11px] font-mono">
             <span className="w-1.5 h-1.5 rounded-full bg-electric-lime animate-pulse" />
             <span>Open to Relocation</span>
           </div>
-
-          {/* Download Resume Button */}
-          <MagneticButton
-            onClick={handleDownloadResume}
-            className="px-4 py-2 rounded-full bg-electric-lime text-black font-mono text-xs font-bold tracking-wide hover:bg-white transition-colors duration-300 shadow-md group focus:outline-none focus:ring-2 focus:ring-white"
-            data-cursor="hover"
-          >
-            <a
-              href={PORTFOLIO_CONTENT.personal.resumePath}
-              download="Tharunshankar_S_Resume.pdf"
-              className="flex items-center gap-1.5"
-            >
-              <Download size={13} className="group-hover:translate-y-0.5 transition-transform" />
-              <span>Resume</span>
-            </a>
-          </MagneticButton>
 
           {/* Mobile Menu Trigger */}
           <button
@@ -159,20 +130,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onShowToast }) => {
                 <span className="text-xs text-electric-lime font-mono">↗</span>
               </a>
             ))}
-          </div>
-          <div className="pt-3 border-t border-dark-border flex flex-col gap-2">
-            <a
-              href={PORTFOLIO_CONTENT.personal.resumePath}
-              download="Tharunshankar_S_Resume.pdf"
-              onClick={() => {
-                handleDownloadResume();
-                setMobileMenuOpen(false);
-              }}
-              className="w-full py-2.5 rounded-full bg-electric-lime text-black font-mono text-xs font-bold text-center flex items-center justify-center gap-2"
-            >
-              <Download size={14} />
-              <span>Download Resume</span>
-            </a>
           </div>
         </div>
       )}
