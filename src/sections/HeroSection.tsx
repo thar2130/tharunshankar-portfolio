@@ -59,7 +59,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
   return (
     <section
       id="hero"
-      className="relative min-h-screen w-full flex flex-col justify-between pt-28 pb-12 px-6 sm:px-12 md:px-16 overflow-hidden bg-dark-bg"
+      className="relative min-h-screen w-full flex flex-col justify-between pt-24 sm:pt-28 pb-8 sm:pb-12 px-4 sm:px-8 md:px-16 overflow-hidden bg-dark-bg"
     >
       {/* 3D Background Canvas */}
       <ThreeHeroCanvas />
@@ -67,18 +67,18 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
       {/* Subtle radial ambient gradients */}
       <div
         aria-hidden="true"
-        className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-electric-lime/8 rounded-full blur-[140px] pointer-events-none"
+        className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[550px] h-[350px] sm:h-[550px] bg-electric-lime/8 rounded-full blur-[140px] pointer-events-none"
       />
       <div
         aria-hidden="true"
-        className="absolute bottom-1/3 right-10 w-[450px] h-[450px] bg-electric-violet/10 rounded-full blur-[150px] pointer-events-none"
+        className="absolute bottom-1/3 right-4 sm:right-10 w-[300px] sm:w-[450px] h-[300px] sm:h-[450px] bg-electric-violet/10 rounded-full blur-[150px] pointer-events-none"
       />
 
       {/* Top Meta Bar */}
-      <div className="relative z-10 max-w-7xl mx-auto w-full flex flex-wrap items-center justify-between gap-4 pt-4">
+      <div className="relative z-10 max-w-7xl mx-auto w-full flex flex-wrap items-center justify-between gap-3 pt-2 sm:pt-4">
         {/* Terminal status pill */}
-        <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-dark-surface/90 border border-dark-border text-xs font-mono backdrop-blur-md">
-          <Terminal size={14} className="text-electric-lime" />
+        <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-dark-surface/90 border border-dark-border text-[11px] sm:text-xs font-mono backdrop-blur-md">
+          <Terminal size={13} className="text-electric-lime shrink-0" />
           <span className="text-typography-muted">STATUS:</span>
           <span className="text-white font-medium flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full bg-electric-lime animate-pulse" />
@@ -94,17 +94,17 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
       </div>
 
       {/* Center Kinetic Typography & Identity */}
-      <div className="relative z-10 max-w-7xl mx-auto w-full my-auto py-12">
+      <div className="relative z-10 max-w-7xl mx-auto w-full my-auto py-8 sm:py-12">
         {/* Monogram tag */}
-        <div className="flex items-center gap-2 font-mono text-xs text-electric-lime uppercase tracking-widest mb-4">
-          <Sparkles size={14} />
-          <span>FULL-STACK SOFTWARE ENGINEER // DISTRIBUTED SYSTEMS</span>
+        <div className="flex items-center gap-2 font-mono text-[11px] sm:text-xs text-electric-lime uppercase tracking-widest mb-3 sm:mb-4">
+          <Sparkles size={13} className="shrink-0" />
+          <span className="truncate">FULL-STACK SOFTWARE ENGINEER // DISTRIBUTED SYSTEMS</span>
         </div>
 
         {/* Giant Animated Name - Strictly Single Line */}
         <h1
           ref={headlineRef}
-          className="font-display font-extrabold text-[clamp(1.65rem,5.8vw,7.2rem)] whitespace-nowrap text-white uppercase select-none tracking-tight perspective-text w-full overflow-visible"
+          className="font-display font-extrabold text-[clamp(1.35rem,5.4vw,7.2rem)] sm:text-[clamp(1.75rem,5.8vw,7.2rem)] whitespace-nowrap text-white uppercase select-none tracking-tight perspective-text w-full overflow-visible"
           aria-label={PORTFOLIO_CONTENT.personal.name}
         >
           {nameLetters.map((char, index) => (
@@ -117,12 +117,12 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
         </h1>
 
         {/* Dynamic cycling role subtitle */}
-        <div className="mt-6 flex items-center gap-3">
-          <span className="w-8 h-[2px] bg-electric-lime hidden sm:inline-block" />
-          <div className="overflow-hidden h-9 flex items-center">
+        <div className="mt-4 sm:mt-6 flex items-center gap-2.5 sm:gap-3">
+          <span className="w-6 sm:w-8 h-[2px] bg-electric-lime hidden sm:inline-block" />
+          <div className="overflow-hidden h-8 sm:h-9 flex items-center">
             <p
               key={currentRole}
-              className="font-mono text-base sm:text-xl md:text-2xl text-typography-light font-medium tracking-wide animate-in fade-in slide-in-from-bottom-2 duration-300"
+              className="font-mono text-sm sm:text-xl md:text-2xl text-typography-light font-medium tracking-wide animate-in fade-in slide-in-from-bottom-2 duration-300"
             >
               {currentRole}
             </p>
@@ -130,31 +130,30 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
         </div>
 
         {/* Bio summary paragraph */}
-        <p className="mt-6 max-w-2xl text-base sm:text-lg text-typography-dim leading-relaxed font-sans">
+        <p className="mt-4 sm:mt-6 max-w-2xl text-sm sm:text-base md:text-lg text-typography-dim leading-relaxed font-sans">
           {PORTFOLIO_CONTENT.personal.shortBio}
         </p>
 
         {/* Action CTAs */}
-        <div className="mt-10 flex flex-wrap items-center gap-4">
+        <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
           <MagneticButton
             onClick={() => {
               const bentoSection = document.getElementById('bento');
               bentoSection?.scrollIntoView({ behavior: 'smooth' });
             }}
-            className="px-7 py-3.5 rounded-full bg-electric-lime text-black font-mono text-xs sm:text-sm font-bold tracking-wider uppercase hover:bg-white transition-all duration-300 shadow-xl group"
+            className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-electric-lime text-black font-mono text-xs sm:text-sm font-bold tracking-wider uppercase hover:bg-white transition-all duration-300 shadow-xl flex items-center justify-center gap-2 group"
             data-cursor="view"
           >
             <span>Explore Bento Console</span>
             <ArrowDown size={15} className="group-hover:translate-y-1 transition-transform" />
           </MagneticButton>
 
-
           <MagneticButton
             onClick={() => {
               const contactSection = document.getElementById('contact');
               contactSection?.scrollIntoView({ behavior: 'smooth' });
             }}
-            className="px-6 py-3.5 rounded-full bg-dark-card/60 border border-dark-border/60 hover:border-electric-violet/80 text-typography-dim hover:text-white font-mono text-xs sm:text-sm tracking-wider uppercase transition-all duration-300"
+            className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-dark-card/60 border border-dark-border/60 hover:border-electric-violet/80 text-typography-dim hover:text-white font-mono text-xs sm:text-sm tracking-wider uppercase transition-all duration-300 flex items-center justify-center gap-2"
             data-cursor="hover"
           >
             <span className="flex items-center gap-2">

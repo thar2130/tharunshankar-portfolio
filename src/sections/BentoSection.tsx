@@ -28,6 +28,7 @@ export const BentoSection: React.FC<BentoSectionProps> = ({ onShowToast }) => {
 
   const handleCertMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!certRef.current) return;
+    if (window.matchMedia('(pointer: coarse)').matches) return;
     const rect = certRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
@@ -68,7 +69,7 @@ export const BentoSection: React.FC<BentoSectionProps> = ({ onShowToast }) => {
         className="absolute bottom-10 right-10 w-[550px] h-[550px] bg-electric-violet/10 rounded-full blur-[160px] pointer-events-none"
       />
 
-      <div className="max-w-7xl mx-auto px-6 sm:px-12 md:px-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-16">
         {/* Section Heading (No serial numbers) */}
         <SectionHeading
           title="INTERACTIVE OVERVIEW"
@@ -77,12 +78,12 @@ export const BentoSection: React.FC<BentoSectionProps> = ({ onShowToast }) => {
         />
 
         {/* Master Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 mt-12">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-5 sm:gap-6 mt-10 sm:mt-12">
           
           {/* ============================================================== */}
           {/* CARD 1: ANIMATED GITHUB WORKS GATEWAY (Featured Card) */}
           {/* ============================================================== */}
-          <div className="md:col-span-12 relative rounded-3xl p-8 sm:p-12 bg-dark-card border border-dark-border/80 hover:border-electric-lime/50 transition-all duration-300 shadow-2xl overflow-hidden group">
+          <div className="md:col-span-12 relative rounded-3xl p-5 sm:p-8 md:p-12 bg-dark-card border border-dark-border/80 hover:border-electric-lime/50 transition-all duration-300 shadow-2xl overflow-hidden group">
             {/* Animated Multi-Color Rotating Gradient Border */}
             <div
               aria-hidden="true"
@@ -90,54 +91,54 @@ export const BentoSection: React.FC<BentoSectionProps> = ({ onShowToast }) => {
             />
 
             {/* Inner Content Container */}
-            <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+            <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 sm:gap-8">
               <div className="max-w-3xl">
                 {/* Header Tag */}
-                <div className="flex flex-wrap items-center gap-3 mb-4">
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-dark-surface border border-electric-lime/40 text-electric-lime text-xs font-mono">
+                <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 mb-3 sm:mb-4">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-dark-surface border border-electric-lime/40 text-electric-lime text-[11px] sm:text-xs font-mono">
                     <span className="w-2 h-2 rounded-full bg-electric-lime animate-ping" />
                     <span>CODEBASE SHOWCASE // REPOSITORIES</span>
                   </div>
 
-                  <span className="font-mono text-xs text-typography-muted flex items-center gap-1.5">
-                    <Github size={14} className="text-white" />
+                  <span className="font-mono text-[11px] sm:text-xs text-typography-muted flex items-center gap-1.5">
+                    <Github size={13} className="text-white" />
                     <span>github.com/thar2130</span>
                   </span>
                 </div>
 
                 {/* Animated Works Headline */}
-                <h3 className="font-display font-extrabold text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight uppercase leading-[1.05]">
+                <h3 className="font-display font-extrabold text-2xl sm:text-4xl lg:text-5xl text-white tracking-tight uppercase leading-[1.08]">
                   Want to Know <br />
                   <span className="text-electric-lime electric-glow">About My Works?</span>
                 </h3>
 
-                <p className="mt-4 text-base sm:text-lg text-typography-dim font-sans leading-relaxed">
+                <p className="mt-3 sm:mt-4 text-sm sm:text-base md:text-lg text-typography-dim font-sans leading-relaxed">
                   Explore my complete open-source repositories, distributed microservices, TypeScript/React full-stack codebases, and autonomous AI tooling directly on GitHub.
                 </p>
 
                 {/* Animated Highlights Bar */}
-                <div className="mt-6 flex flex-wrap items-center gap-3 text-xs font-mono text-typography-dim">
-                  <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-dark-surface border border-dark-border">
-                    <Zap size={13} className="text-electric-lime" />
+                <div className="mt-5 sm:mt-6 flex flex-wrap items-center gap-2 sm:gap-3 text-xs font-mono text-typography-dim">
+                  <div className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg bg-dark-surface border border-dark-border text-[11px] sm:text-xs">
+                    <Zap size={13} className="text-electric-lime shrink-0" />
                     <span>Distributed Microservices</span>
                   </div>
-                  <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-dark-surface border border-dark-border">
-                    <Cpu size={13} className="text-electric-violet" />
+                  <div className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg bg-dark-surface border border-dark-border text-[11px] sm:text-xs">
+                    <Cpu size={13} className="text-electric-violet shrink-0" />
                     <span>TypeScript &amp; React 19</span>
                   </div>
-                  <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-dark-surface border border-dark-border">
-                    <Sparkles size={13} className="text-electric-cyan" />
+                  <div className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg bg-dark-surface border border-dark-border text-[11px] sm:text-xs">
+                    <Sparkles size={13} className="text-electric-cyan shrink-0" />
                     <span>Claude AI Systems</span>
                   </div>
                 </div>
               </div>
 
               {/* Animated Magnetic GitHub Button */}
-              <div className="shrink-0 flex flex-col items-start lg:items-end gap-3 w-full lg:w-auto">
+              <div className="shrink-0 flex flex-col items-start lg:items-end gap-2.5 sm:gap-3 w-full lg:w-auto">
                 <MagneticButton
                   onClick={handleGitHubClick}
                   data-cursor="view"
-                  className="w-full sm:w-auto px-8 py-4 rounded-full bg-electric-lime text-black font-mono text-sm font-bold tracking-wider uppercase hover:bg-white transition-all duration-300 shadow-2xl flex items-center justify-center gap-3 group/btn"
+                  className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-electric-lime text-black font-mono text-xs sm:text-sm font-bold tracking-wider uppercase hover:bg-white transition-all duration-300 shadow-2xl flex items-center justify-center gap-2.5 group/btn"
                 >
                   <span className="flex items-center gap-2.5">
                     <Github size={18} className="group-hover/btn:rotate-12 transition-transform" />
@@ -145,7 +146,7 @@ export const BentoSection: React.FC<BentoSectionProps> = ({ onShowToast }) => {
                     <ArrowUpRight size={18} className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
                   </span>
                 </MagneticButton>
-                <span className="text-[11px] font-mono text-typography-muted">
+                <span className="text-[10px] sm:text-[11px] font-mono text-typography-muted">
                   LIVE REPOSITORIES // UPDATED CONTINUOUSLY
                 </span>
               </div>
@@ -155,7 +156,7 @@ export const BentoSection: React.FC<BentoSectionProps> = ({ onShowToast }) => {
           {/* ============================================================== */}
           {/* CARD 2: INTERACTIVE AI & CLAUDE SYSTEM TERMINAL */}
           {/* ============================================================== */}
-          <div className="md:col-span-12 lg:col-span-7 rounded-3xl p-6 sm:p-8 bg-dark-card border border-dark-border/90 shadow-2xl flex flex-col justify-between">
+          <div className="md:col-span-12 lg:col-span-7 rounded-3xl p-4 sm:p-7 bg-dark-card border border-dark-border/90 shadow-2xl flex flex-col justify-between">
             <div>
               {/* Terminal Titlebar */}
               <div className="flex items-center justify-between pb-4 border-b border-dark-border/70 mb-4">
@@ -253,7 +254,7 @@ export const BentoSection: React.FC<BentoSectionProps> = ({ onShowToast }) => {
             ref={certRef}
             onMouseMove={handleCertMouseMove}
             onMouseLeave={handleCertMouseLeave}
-            className="md:col-span-12 lg:col-span-5 rounded-3xl p-8 bg-dark-card border border-electric-lime/40 hover:border-electric-lime transition-all duration-300 shadow-xl flex flex-col justify-between relative overflow-hidden select-none perspective-text group"
+            className="md:col-span-12 lg:col-span-5 rounded-3xl p-5 sm:p-7 md:p-8 bg-dark-card border border-electric-lime/40 hover:border-electric-lime transition-all duration-300 shadow-xl flex flex-col justify-between relative overflow-hidden select-none perspective-text group"
             style={{
               transform: `perspective(800px) rotateX(${certTilt.x}deg) rotateY(${certTilt.y}deg)`,
               transformStyle: 'preserve-3d'
@@ -309,7 +310,7 @@ export const BentoSection: React.FC<BentoSectionProps> = ({ onShowToast }) => {
           {/* ============================================================== */}
           {/* CARD 4: CORE ENGINEERING PHILOSOPHY & PILLARS */}
           {/* ============================================================== */}
-          <div className="md:col-span-12 lg:col-span-8 rounded-3xl p-6 sm:p-8 bg-dark-card border border-dark-border/90 shadow-xl flex flex-col justify-between">
+          <div className="md:col-span-12 lg:col-span-8 rounded-3xl p-5 sm:p-7 md:p-8 bg-dark-card border border-dark-border/90 shadow-xl flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between mb-4">
                 <div className="inline-flex items-center gap-2 font-mono text-xs text-electric-lime uppercase tracking-wider">
@@ -362,7 +363,7 @@ export const BentoSection: React.FC<BentoSectionProps> = ({ onShowToast }) => {
           {/* ============================================================== */}
           {/* CARD 5: GLOBAL AVAILABILITY & RELOCATION BEACON */}
           {/* ============================================================== */}
-          <div className="md:col-span-12 lg:col-span-4 rounded-3xl p-6 sm:p-8 bg-gradient-to-br from-dark-card via-dark-surface to-dark-card border border-dark-border/90 shadow-xl flex flex-col justify-between">
+          <div className="md:col-span-12 lg:col-span-4 rounded-3xl p-5 sm:p-7 md:p-8 bg-gradient-to-br from-dark-card via-dark-surface to-dark-card border border-dark-border/90 shadow-xl flex flex-col justify-between">
             <div>
               <div className="w-10 h-10 rounded-xl bg-electric-lime/10 border border-electric-lime/30 flex items-center justify-center text-electric-lime mb-4">
                 <MapPin size={20} />

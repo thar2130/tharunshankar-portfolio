@@ -37,7 +37,7 @@ export const SkillsSection: React.FC = () => {
       id="skills"
       className="relative w-full bg-dark-bg py-24 sm:py-32 border-t border-dark-border/40 overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-6 sm:px-12 md:px-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-16">
         {/* Section Heading */}
         <SectionHeading
           number={PORTFOLIO_CONTENT.skills.sectionNumber}
@@ -48,18 +48,18 @@ export const SkillsSection: React.FC = () => {
       </div>
 
       {/* Infinite Dual-Direction Kinetic Marquees */}
-      <div className="my-10 space-y-4 overflow-hidden pointer-events-auto">
+      <div className="my-8 sm:my-10 space-y-3 sm:space-y-4 overflow-hidden pointer-events-auto">
         {/* Marquee Row 1 (Left Scrolling) */}
-        <div className="relative w-full overflow-hidden py-2 bg-dark-surface/40 border-y border-dark-border/60">
+        <div className="relative w-full overflow-hidden py-1.5 sm:py-2 bg-dark-surface/40 border-y border-dark-border/60">
           <div className="flex w-max animate-marquee-left hover:[animation-play-state:paused]">
             {[...PORTFOLIO_CONTENT.skills.marqueeRow1, ...PORTFOLIO_CONTENT.skills.marqueeRow1].map(
               (tech, idx) => (
                 <div
                   key={idx}
                   data-cursor="hover"
-                  className="mx-4 px-6 py-3 rounded-full bg-dark-card border border-dark-border/80 text-white font-mono text-sm sm:text-base font-semibold tracking-wide whitespace-nowrap transition-all duration-300 hover:scale-110 hover:border-electric-lime hover:text-electric-lime hover:shadow-[0_0_25px_rgba(198,255,61,0.3)] flex items-center gap-3 cursor-pointer select-none"
+                  className="mx-2 sm:mx-4 px-4 sm:px-6 py-2 sm:py-3 rounded-full bg-dark-card border border-dark-border/80 text-white font-mono text-xs sm:text-base font-semibold tracking-wide whitespace-nowrap transition-all duration-300 hover:scale-105 hover:border-electric-lime hover:text-electric-lime hover:shadow-[0_0_25px_rgba(198,255,61,0.3)] flex items-center gap-2 sm:gap-3 cursor-pointer select-none"
                 >
-                  <span className="w-2 h-2 rounded-full bg-electric-lime" />
+                  <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-electric-lime" />
                   <span>{tech}</span>
                 </div>
               )
@@ -68,16 +68,16 @@ export const SkillsSection: React.FC = () => {
         </div>
 
         {/* Marquee Row 2 (Right Scrolling) */}
-        <div className="relative w-full overflow-hidden py-2 bg-dark-surface/40 border-b border-dark-border/60">
+        <div className="relative w-full overflow-hidden py-1.5 sm:py-2 bg-dark-surface/40 border-b border-dark-border/60">
           <div className="flex w-max animate-marquee-right hover:[animation-play-state:paused]">
             {[...PORTFOLIO_CONTENT.skills.marqueeRow2, ...PORTFOLIO_CONTENT.skills.marqueeRow2].map(
               (tech, idx) => (
                 <div
                   key={idx}
                   data-cursor="hover"
-                  className="mx-4 px-6 py-3 rounded-full bg-dark-card border border-dark-border/80 text-white font-mono text-sm sm:text-base font-semibold tracking-wide whitespace-nowrap transition-all duration-300 hover:scale-110 hover:border-electric-violet hover:text-electric-violet hover:shadow-[0_0_25px_rgba(124,92,255,0.3)] flex items-center gap-3 cursor-pointer select-none"
+                  className="mx-2 sm:mx-4 px-4 sm:px-6 py-2 sm:py-3 rounded-full bg-dark-card border border-dark-border/80 text-white font-mono text-xs sm:text-base font-semibold tracking-wide whitespace-nowrap transition-all duration-300 hover:scale-105 hover:border-electric-violet hover:text-electric-violet hover:shadow-[0_0_25px_rgba(124,92,255,0.3)] flex items-center gap-2 sm:gap-3 cursor-pointer select-none"
                 >
-                  <span className="w-2 h-2 rounded-full bg-electric-violet" />
+                  <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-electric-violet" />
                   <span>{tech}</span>
                 </div>
               )
@@ -87,16 +87,16 @@ export const SkillsSection: React.FC = () => {
       </div>
 
       {/* Interactive Category Filter Pills */}
-      <div className="max-w-7xl mx-auto px-6 sm:px-12 md:px-16 mt-16">
-        <div className="flex flex-wrap items-center gap-2 pb-6 border-b border-dark-border">
-          <span className="font-mono text-xs text-typography-muted mr-2 uppercase tracking-wider">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-16 mt-12 sm:mt-16">
+        <div className="flex flex-wrap items-center gap-2 pb-5 sm:pb-6 border-b border-dark-border">
+          <span className="font-mono text-xs text-typography-muted mr-1 sm:mr-2 uppercase tracking-wider">
             FILTER STACK:
           </span>
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-4 py-1.5 rounded-full font-mono text-xs tracking-wider transition-all duration-200 ${
+              className={`px-3.5 sm:px-4 py-1.5 rounded-full font-mono text-xs tracking-wider transition-all duration-200 ${
                 activeCategory === cat
                   ? 'bg-electric-lime text-black font-bold shadow-md'
                   : 'bg-dark-card border border-dark-border text-typography-dim hover:text-white hover:border-white/40'
@@ -108,11 +108,11 @@ export const SkillsSection: React.FC = () => {
         </div>
 
         {/* Detailed Skills Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 mt-8 sm:mt-10">
           {filteredCategories.map((group) => (
             <div
               key={group.category}
-              className="p-6 sm:p-8 rounded-3xl bg-dark-card border border-dark-border hover:border-electric-lime/40 transition-all duration-300 flex flex-col justify-between group"
+              className="p-5 sm:p-7 md:p-8 rounded-3xl bg-dark-card border border-dark-border hover:border-electric-lime/40 transition-all duration-300 flex flex-col justify-between group"
             >
               <div>
                 <div className="flex items-center justify-between mb-4">

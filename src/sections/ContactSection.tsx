@@ -69,7 +69,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onShowToast }) =
         className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-electric-lime/10 rounded-full blur-[150px] pointer-events-none"
       />
 
-      <div className="max-w-7xl mx-auto px-6 sm:px-12 md:px-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-16">
         {/* Section Code Badge (No serial numbers) */}
         <div className="inline-flex items-center gap-2 font-mono text-xs tracking-widest text-typography-muted uppercase mb-4">
           <span className="w-1.5 h-1.5 rounded-full bg-electric-lime" />
@@ -78,34 +78,34 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onShowToast }) =
         </div>
 
         {/* Giant Kinetic Headline */}
-        <h2 className="font-display font-extrabold text-[clamp(2.2rem,7.2vw,7.2rem)] text-white uppercase tracking-tight leading-[0.95] mt-4 select-none max-w-full">
+        <h2 className="font-display font-extrabold text-[clamp(1.9rem,6.8vw,7.2rem)] text-white uppercase tracking-tight leading-[0.95] mt-4 select-none max-w-full">
           LET'S BUILD <br />
           <span className="text-electric-lime electric-glow inline-block">SOMETHING</span>
         </h2>
 
-        <p className="mt-6 text-lg sm:text-2xl text-typography-dim font-sans max-w-2xl leading-relaxed">
+        <p className="mt-4 sm:mt-6 text-base sm:text-xl md:text-2xl text-typography-dim font-sans max-w-2xl leading-relaxed">
           {PORTFOLIO_CONTENT.contact.subheadline}
         </p>
 
         {/* Interactive Magnetic Email CTA Box */}
-        <div className="my-14 p-8 sm:p-12 rounded-3xl bg-dark-card border border-dark-border/90 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-2xl relative overflow-hidden group">
+        <div className="my-10 sm:my-14 p-5 sm:p-8 md:p-12 rounded-3xl bg-dark-card border border-dark-border/90 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-2xl relative overflow-hidden group">
           <div className="z-10">
             <span className="font-mono text-xs text-electric-lime tracking-widest uppercase block mb-1">
               DIRECT INBOX
             </span>
-            <span className="font-display font-bold text-2xl sm:text-4xl text-white block select-all">
+            <span className="font-display font-bold text-xl sm:text-3xl md:text-4xl text-white block select-all break-all sm:break-normal">
               {PORTFOLIO_CONTENT.contact.email}
             </span>
             <span className="text-xs font-mono text-typography-muted mt-2 block">
-              Typical response time: &lt; 24 hours · Worldwide & Remote Friendly
+              Typical response time: &lt; 24 hours · Worldwide &amp; Remote Friendly
             </span>
           </div>
 
-          <div className="z-10 flex flex-wrap items-center gap-3">
+          <div className="z-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
             <MagneticButton
               onClick={handleCopyEmail}
               data-cursor="copy"
-              className="px-6 py-3.5 rounded-full bg-electric-lime text-black font-mono text-xs sm:text-sm font-bold tracking-wider uppercase hover:bg-white transition-all duration-300 shadow-xl flex items-center gap-2"
+              className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-electric-lime text-black font-mono text-xs sm:text-sm font-bold tracking-wider uppercase hover:bg-white transition-all duration-300 shadow-xl flex items-center justify-center gap-2"
             >
               {copied ? <Check size={16} /> : <Copy size={16} />}
               <span>{copied ? 'Copied to Clipboard!' : 'Copy Email Address'}</span>
@@ -113,7 +113,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onShowToast }) =
 
             <a
               href={`mailto:${PORTFOLIO_CONTENT.contact.email}`}
-              className="px-6 py-3.5 rounded-full bg-dark-surface border border-dark-border hover:border-electric-lime text-white font-mono text-xs sm:text-sm tracking-wider uppercase transition-all duration-300 flex items-center gap-2"
+              className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-dark-surface border border-dark-border hover:border-electric-lime text-white font-mono text-xs sm:text-sm tracking-wider uppercase transition-all duration-300 flex items-center justify-center gap-2"
               data-cursor="hover"
             >
               <Mail size={16} className="text-electric-lime" />
@@ -123,7 +123,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onShowToast }) =
         </div>
 
         {/* Contact Form & Social Directory Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 my-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 my-12 sm:my-16">
           {/* Left Column: Direct Links & Relocation Info */}
           <div className="lg:col-span-5 space-y-4">
             <h3 className="font-display font-bold text-xl text-white uppercase tracking-wider mb-2">
@@ -211,7 +211,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onShowToast }) =
           </div>
 
           {/* Right Column: Interactive Quick Transmission Form */}
-          <div className="lg:col-span-7 p-8 rounded-3xl bg-dark-card border border-dark-border/90 shadow-xl">
+          <div className="lg:col-span-7 p-5 sm:p-8 rounded-3xl bg-dark-card border border-dark-border/90 shadow-xl">
             <div className="flex items-center justify-between mb-6">
               <h3 className="font-display font-bold text-xl text-white uppercase tracking-wider">
                 Direct Dispatch Transmission
@@ -299,7 +299,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onShowToast }) =
       </div>
 
       {/* Colophon & Sub-Footer */}
-      <div className="max-w-7xl mx-auto px-6 sm:px-12 md:px-16 pt-10 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs text-typography-muted">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-16 pt-8 sm:pt-10 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs text-typography-muted text-center sm:text-left">
         <div className="flex items-center gap-2">
           <span>© {new Date().getFullYear()} {PORTFOLIO_CONTENT.personal.name}.</span>
           <span>ALL RIGHTS RESERVED.</span>

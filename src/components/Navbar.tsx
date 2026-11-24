@@ -95,28 +95,29 @@ export const Navbar: React.FC<NavbarProps> = () => {
         </div>
 
         {/* Right Action Buttons */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           {/* Status Badge */}
-          <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-electric-lime/10 border border-electric-lime/20 text-electric-lime text-[11px] font-mono">
+          <div className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-electric-lime/10 border border-electric-lime/20 text-electric-lime text-[10px] sm:text-[11px] font-mono">
             <span className="w-1.5 h-1.5 rounded-full bg-electric-lime animate-pulse" />
-            <span>Open to Relocation</span>
+            <span className="hidden sm:inline">Open to Relocation</span>
+            <span className="sm:hidden">Available</span>
           </div>
 
           {/* Mobile Menu Trigger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden w-9 h-9 rounded-full bg-dark-card border border-dark-border flex items-center justify-center text-white hover:text-electric-lime focus:outline-none"
+            className="lg:hidden w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-dark-card border border-dark-border flex items-center justify-center text-white hover:text-electric-lime focus:outline-none"
             aria-label={mobileMenuOpen ? 'Close Menu' : 'Open Menu'}
           >
-            {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
+            {mobileMenuOpen ? <X size={17} /> : <Menu size={17} />}
           </button>
         </div>
       </nav>
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden pointer-events-auto mt-3 bg-dark-card/95 border border-dark-border backdrop-blur-2xl rounded-2xl p-6 shadow-2xl flex flex-col gap-4 animate-in fade-in slide-in-from-top-4 duration-300">
-          <div className="flex flex-col gap-2">
+        <div className="lg:hidden pointer-events-auto mt-2 sm:mt-3 bg-dark-card/95 border border-dark-border backdrop-blur-2xl rounded-2xl p-4 sm:p-6 shadow-2xl flex flex-col gap-3 animate-in fade-in slide-in-from-top-4 duration-300">
+          <div className="flex flex-col gap-1.5">
             {navLinks.map((link) => (
               <a
                 key={link.href}
@@ -124,7 +125,7 @@ export const Navbar: React.FC<NavbarProps> = () => {
                 target={link.external ? '_blank' : undefined}
                 rel={link.external ? 'noopener noreferrer' : undefined}
                 onClick={() => setMobileMenuOpen(false)}
-                className="py-2.5 px-3 rounded-lg text-sm font-mono text-white hover:bg-dark-hover hover:text-electric-lime transition-colors flex items-center justify-between"
+                className="py-2.5 px-3.5 rounded-xl text-sm font-mono text-white hover:bg-dark-hover hover:text-electric-lime transition-colors flex items-center justify-between"
               >
                 <span>{link.label}</span>
                 <span className="text-xs text-electric-lime font-mono">↗</span>

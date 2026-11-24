@@ -17,13 +17,17 @@ export const ThreeHeroCanvas: React.FC<ThreeHeroCanvasProps> = ({ className = ''
 
     // 1. Scene, Camera, Renderer
     const scene = new THREE.Scene();
+    const isMobileInit = mount.clientWidth < 640;
+    const isTabletInit = mount.clientWidth < 1024;
+    const initialZ = isMobileInit ? 10.2 : isTabletInit ? 8.6 : 7.5;
+
     const camera = new THREE.PerspectiveCamera(
       45,
       mount.clientWidth / mount.clientHeight,
       0.1,
       1000
     );
-    camera.position.set(0, 0, 7.5);
+    camera.position.set(0, 0, initialZ);
 
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
@@ -171,6 +175,7 @@ export const ThreeHeroCanvas: React.FC<ThreeHeroCanvasProps> = ({ className = ''
       const width = mount.clientWidth;
       const height = mount.clientHeight;
       camera.aspect = width / height;
+      camera.position.z = width < 640 ? 10.2 : width < 1024 ? 8.6 : 7.5;
       camera.updateProjectionMatrix();
       renderer.setSize(width, height);
     };
