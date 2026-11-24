@@ -8,11 +8,8 @@ import { ScrollProgress } from './components/ScrollProgress';
 import { Toast, ToastMessage } from './components/Toast';
 
 import { HeroSection } from './sections/HeroSection';
-import { AboutSection } from './sections/AboutSection';
-import { ExperienceSection } from './sections/ExperienceSection';
+import { BentoSection } from './sections/BentoSection';
 import { SkillsSection } from './sections/SkillsSection';
-import { ProjectsSection } from './sections/ProjectsSection';
-import { EducationCertificationsSection } from './sections/EducationCertificationsSection';
 import { ContactSection } from './sections/ContactSection';
 
 export const App: React.FC = () => {
@@ -63,11 +60,8 @@ export const App: React.FC = () => {
       {/* Main Page Content Flow */}
       <main id="main-content" className="relative z-10 w-full overflow-hidden">
         <HeroSection onShowToast={showToast} />
-        <AboutSection />
-        <ExperienceSection />
+        <BentoSection onShowToast={showToast} />
         <SkillsSection />
-        <ProjectsSection onShowToast={showToast} />
-        <EducationCertificationsSection />
         <ContactSection onShowToast={showToast} />
       </main>
     </div>

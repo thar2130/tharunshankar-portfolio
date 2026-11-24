@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface SectionHeadingProps {
-  number: string;
+  number?: string;
   title: string;
   heading: string;
   subheading?: string;
@@ -11,7 +11,6 @@ interface SectionHeadingProps {
 }
 
 export const SectionHeading: React.FC<SectionHeadingProps> = ({
-  number,
   title,
   heading,
   subheading,
@@ -21,10 +20,10 @@ export const SectionHeading: React.FC<SectionHeadingProps> = ({
 }) => {
   return (
     <div className={`${className} ${align === 'center' ? 'text-center mx-auto' : ''}`}>
-      {/* Code Badge */}
+      {/* Code Badge (No serial numbers) */}
       <div className={`inline-flex items-center gap-2 font-mono text-xs tracking-widest text-typography-muted uppercase mb-4 ${align === 'center' ? 'justify-center' : ''}`}>
         <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: accentColor }} />
-        <span>// {number}. {title}</span>
+        <span>// {title}</span>
         <span className="h-[1px] w-8 bg-dark-border inline-block ml-2" />
       </div>
 

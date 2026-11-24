@@ -54,12 +54,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onShowToast }) => {
   };
 
   const navLinks = [
-    { label: 'About', href: '#about', num: '01' },
-    { label: 'Experience', href: '#experience', num: '02' },
-    { label: 'Skills', href: '#skills', num: '03' },
-    { label: 'Projects', href: '#projects', num: '04' },
-    { label: 'Certs', href: '#credentials', num: '05' },
-    { label: 'Contact', href: '#contact', num: '06' }
+    { label: 'Overview', href: '#bento', external: false },
+    { label: 'Stack', href: '#skills', external: false },
+    { label: 'Works (GitHub)', href: 'https://github.com/tharunshankar', external: true },
+    { label: 'Contact', href: '#contact', external: false }
   ];
 
   return (
@@ -93,17 +91,17 @@ export const Navbar: React.FC<NavbarProps> = ({ onShowToast }) => {
         </a>
 
         {/* Desktop Nav Items */}
-        <div className="hidden lg:flex items-center gap-1 bg-dark-bg/60 border border-dark-border/60 rounded-full px-3 py-1.5 backdrop-blur-md">
+        <div className="hidden lg:flex items-center gap-1 bg-dark-bg/60 border border-dark-border/60 rounded-full px-4 py-1.5 backdrop-blur-md">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="px-3 py-1 text-xs font-mono text-typography-dim hover:text-electric-lime transition-colors duration-200 flex items-center gap-1 group focus:outline-none focus:text-electric-lime"
+              target={link.external ? '_blank' : undefined}
+              rel={link.external ? 'noopener noreferrer' : undefined}
+              className="px-3.5 py-1 text-xs font-mono text-typography-dim hover:text-electric-lime transition-colors duration-200 flex items-center gap-1.5 group focus:outline-none focus:text-electric-lime"
               data-cursor="hover"
             >
-              <span className="text-[10px] text-electric-lime/60 group-hover:text-electric-lime">
-                {link.num}.
-              </span>
+              <span className="w-1.5 h-1.5 rounded-full bg-electric-lime/40 group-hover:bg-electric-lime transition-colors" />
               <span>{link.label}</span>
             </a>
           ))}
@@ -152,11 +150,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onShowToast }) => {
               <a
                 key={link.href}
                 href={link.href}
+                target={link.external ? '_blank' : undefined}
+                rel={link.external ? 'noopener noreferrer' : undefined}
                 onClick={() => setMobileMenuOpen(false)}
                 className="py-2.5 px-3 rounded-lg text-sm font-mono text-white hover:bg-dark-hover hover:text-electric-lime transition-colors flex items-center justify-between"
               >
                 <span>{link.label}</span>
-                <span className="text-xs text-electric-lime font-mono">{link.num}</span>
+                <span className="text-xs text-electric-lime font-mono">↗</span>
               </a>
             ))}
           </div>

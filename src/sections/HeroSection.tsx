@@ -150,13 +150,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShowToast }) => {
         <div className="mt-10 flex flex-wrap items-center gap-4">
           <MagneticButton
             onClick={() => {
-              const worksSection = document.getElementById('projects');
-              worksSection?.scrollIntoView({ behavior: 'smooth' });
+              const bentoSection = document.getElementById('bento');
+              bentoSection?.scrollIntoView({ behavior: 'smooth' });
             }}
             className="px-7 py-3.5 rounded-full bg-electric-lime text-black font-mono text-xs sm:text-sm font-bold tracking-wider uppercase hover:bg-white transition-all duration-300 shadow-xl group"
             data-cursor="view"
           >
-            <span>Explore Selected Work</span>
+            <span>Explore Bento Console</span>
             <ArrowDown size={15} className="group-hover:translate-y-1 transition-transform" />
           </MagneticButton>
 

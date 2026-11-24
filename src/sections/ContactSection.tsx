@@ -70,10 +70,10 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onShowToast }) =
       />
 
       <div className="max-w-7xl mx-auto px-6 sm:px-12 md:px-16">
-        {/* Section Code Badge */}
+        {/* Section Code Badge (No serial numbers) */}
         <div className="inline-flex items-center gap-2 font-mono text-xs tracking-widest text-typography-muted uppercase mb-4">
           <span className="w-1.5 h-1.5 rounded-full bg-electric-lime" />
-          <span>// 06. INITIATE CONNECTION</span>
+          <span>// INITIATE CONNECTION</span>
           <span className="h-[1px] w-8 bg-dark-border inline-block ml-2" />
         </div>
 
