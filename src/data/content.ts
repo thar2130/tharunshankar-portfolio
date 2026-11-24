@@ -91,7 +91,7 @@ export const PORTFOLIO_CONTENT = {
       linkedinDisplay: "linkedin.com/in/tharun",
       github: "https://github.com/thar2130",
       githubDisplay: "github.com/thar2130",
-      web3formsKey: ""
+      web3formsKey: "2acc1409-8d1f-4f89-9825-7e069b9655bd"
     },
     resumePath: "/resume.pdf",
     shortBio: "Building high-throughput distributed backends, resilient REST APIs, and immersive React applications with modern AI tooling."
