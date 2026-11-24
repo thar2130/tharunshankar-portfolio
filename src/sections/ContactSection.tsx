@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { PORTFOLIO_CONTENT } from '../data/content';
 import { MagneticButton } from '../components/MagneticButton';
-import { Mail, Copy, Check, Phone, Linkedin, Github, MapPin, Send, ArrowUp, Loader2, AlertCircle } from 'lucide-react';
+import { Mail, Copy, Check, Phone, Linkedin, Github, MapPin, Send, ArrowUp } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 interface ContactSectionProps {
@@ -11,8 +11,7 @@ interface ContactSectionProps {
 export const ContactSection: React.FC<ContactSectionProps> = ({ onShowToast }) => {
   const [copied, setCopied] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-  const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
-  const [statusMessage, setStatusMessage] = useState('');
+  const [formStatus, setFormStatus] = useState<'idle' | 'success'>('idle');
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(PORTFOLIO_CONTENT.personal.contact.email);
@@ -32,70 +31,65 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onShowToast }) =
     }, 3000);
   };
 
-  const handleFormSubmit = async (e: React.FormEvent) => {
+  const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
-      onShowToast('Incomplete Form', 'Please fill out all fields.');
+      onShowToast('Incomplete Form', 'Please provide your name, email, and message.');
       return;
     }
 
-    setFormStatus('sending');
+    const targetEmail = PORTFOLIO_CONTENT.personal.contact.email;
+    const subject = `Portfolio Inquiry from ${formData.name} (tharunprof.dev)`;
+    const body = `Hi Tharun,\n\nName: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}\n\n---\nTransmitted via tharunprof.dev`;
 
-    try {
-      const response = await fetch(`https://formsubmit.co/ajax/${PORTFOLIO_CONTENT.personal.contact.email}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-          _subject: `New Transmission from ${formData.name} (tharunprof.dev)`,
-          _template: 'table',
-          _captcha: 'false'
-        })
-      });
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(targetEmail)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const mailtoUrl = `mailto:${encodeURIComponent(targetEmail)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
-      const data = await response.json().catch(() => ({}));
+    // Confetti celebration
+    confetti({
+      particleCount: 85,
+      spread: 75,
+      origin: { y: 0.7 },
+      colors: ['#C6FF3D', '#7C5CFF', '#38BDF8']
+    });
 
-      if (response.ok || data.success === 'true' || data.success === true) {
-        setFormStatus('success');
-        setStatusMessage('Message successfully sent to ' + PORTFOLIO_CONTENT.personal.contact.email);
-        confetti({
-          particleCount: 85,
-          spread: 75,
-          origin: { y: 0.7 },
-          colors: ['#C6FF3D', '#7C5CFF', '#38BDF8']
-        });
-
-        onShowToast('Dispatch Transmitted!', `Email delivered to ${PORTFOLIO_CONTENT.personal.contact.email}`);
-        setFormData({ name: '', email: '', message: '' });
-
-        setTimeout(() => {
-          setFormStatus('idle');
-          setStatusMessage('');
-        }, 6000);
-      } else {
-        throw new Error(data.message || 'Submission failed');
-      }
-    } catch (err: unknown) {
-      console.warn('Form submission notice:', err);
-      // Fallback: Launch mail client
-      setFormStatus('error');
-      setStatusMessage('Direct gateway connecting. Launching default email client as backup...');
-      
-      const mailtoUrl = `mailto:${PORTFOLIO_CONTENT.personal.contact.email}?subject=${encodeURIComponent(`Inquiry from ${formData.name} (tharunprof.dev)`)}&body=${encodeURIComponent(`From: ${formData.name} <${formData.email}>\n\nMessage:\n${formData.message}`)}`;
+    // Instant execution: open Gmail Web composer in a new tab
+    const win = window.open(gmailUrl, '_blank', 'noopener,noreferrer');
+    if (!win || win.closed || typeof win.closed === 'undefined') {
+      // If popup blocker intercepted, seamlessly trigger system mailto
       window.location.href = mailtoUrl;
-
-      onShowToast('Mailer Fallback Activated', `Opening email to ${PORTFOLIO_CONTENT.personal.contact.email}`);
-
-      setTimeout(() => {
-        setFormStatus('idle');
-        setStatusMessage('');
-      }, 7000);
     }
+
+    setFormStatus('success');
+    onShowToast('Email Composer Ready!', `Ready to dispatch to ${targetEmail}`);
+
+    setFormData({ name: '', email: '', message: '' });
+  };
+
+  const handleDirectGmail = () => {
+    const targetEmail = PORTFOLIO_CONTENT.personal.contact.email;
+    const name = formData.name.trim() || 'Visitor';
+    const subject = `Portfolio Inquiry from ${name} (tharunprof.dev)`;
+    const body = formData.message.trim()
+      ? `Hi Tharun,\n\nName: ${name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}\n\n---\nTransmitted via tharunprof.dev`
+      : `Hi Tharun,\n\nI was reviewing your portfolio on tharunprof.dev and would love to connect regarding an opportunity.\n\nBest regards,\n${name}`;
+
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(targetEmail)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.open(gmailUrl, '_blank', 'noopener,noreferrer');
+    onShowToast('Opening Gmail', `Composing to ${targetEmail}`);
+  };
+
+  const handleDirectMailer = () => {
+    const targetEmail = PORTFOLIO_CONTENT.personal.contact.email;
+    const name = formData.name.trim() || 'Visitor';
+    const subject = `Portfolio Inquiry from ${name} (tharunprof.dev)`;
+    const body = formData.message.trim()
+      ? `Hi Tharun,\n\nName: ${name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}\n\n---\nTransmitted via tharunprof.dev`
+      : `Hi Tharun,\n\nI was reviewing your portfolio on tharunprof.dev and would love to connect.\n\nBest regards,\n${name}`;
+
+    const mailtoUrl = `mailto:${encodeURIComponent(targetEmail)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailtoUrl;
+    onShowToast('Opening Mail Client', `Composing to ${targetEmail}`);
   };
 
   const scrollToTop = () => {
@@ -260,28 +254,34 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onShowToast }) =
               <h3 className="font-display font-bold text-xl text-white uppercase tracking-wider">
                 Direct Dispatch Transmission
               </h3>
-              <span className="font-mono text-xs text-electric-lime">// DISPATCH PROTOCOL</span>
+              <span className="font-mono text-xs text-electric-lime"> </span>
             </div>
 
             {/* Status Feedback Notice */}
             {formStatus === 'success' && (
-              <div className="mb-4 p-4 rounded-xl bg-electric-lime/15 border border-electric-lime/40 text-electric-lime text-xs font-mono flex items-center gap-2.5 animate-in fade-in slide-in-from-top-2">
-                <Check size={16} className="shrink-0" />
-                <span>{statusMessage || 'Message successfully delivered to ' + PORTFOLIO_CONTENT.personal.contact.email}</span>
-              </div>
-            )}
-
-            {formStatus === 'error' && (
-              <div className="mb-4 p-4 rounded-xl bg-red-500/15 border border-red-500/40 text-red-300 text-xs font-mono flex items-start gap-2.5 animate-in fade-in slide-in-from-top-2">
-                <AlertCircle size={16} className="shrink-0 mt-0.5" />
-                <div>
-                  <p>{statusMessage}</p>
-                  <a
-                    href={`mailto:${PORTFOLIO_CONTENT.personal.contact.email}?subject=Direct Portfolio Message&body=Hi Tharun,`}
-                    className="underline text-electric-lime mt-1 block"
+              <div className="mb-5 p-4 rounded-xl bg-electric-lime/15 border border-electric-lime/50 text-electric-lime text-xs font-mono space-y-2.5 animate-in fade-in slide-in-from-top-2">
+                <div className="flex items-center gap-2">
+                  <Check size={16} className="shrink-0" />
+                  <span className="font-bold">Email composer launched for {PORTFOLIO_CONTENT.personal.contact.email}!</span>
+                </div>
+                <p className="text-[11px] text-typography-light font-sans">
+                  Hit <strong className="text-white">Send</strong> in your mail window to complete transmission. If the window did not open, click below:
+                </p>
+                <div className="flex flex-wrap gap-2 pt-1">
+                  <button
+                    type="button"
+                    onClick={handleDirectGmail}
+                    className="px-3.5 py-1.5 rounded-lg bg-electric-lime text-black font-bold font-mono text-xs flex items-center gap-1.5 hover:bg-white transition-colors"
                   >
-                    Click here to send directly via your email app →
-                  </a>
+                    <span>Launch Gmail ↗</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleDirectMailer}
+                    className="px-3.5 py-1.5 rounded-lg bg-dark-surface border border-dark-border text-white font-mono text-xs hover:border-electric-lime transition-colors"
+                  >
+                    <span>Launch System Mail App</span>
+                  </button>
                 </div>
               </div>
             )}
@@ -334,38 +334,28 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onShowToast }) =
               </div>
 
               <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-                <span className="text-[11px] font-mono text-typography-muted text-center sm:text-left">
-                  CONFIDENTIAL &amp; SECURE // DIRECT TO THARUND2108@GMAIL.COM
-                </span>
+                <div className="flex items-center gap-2 text-[11px] font-mono text-typography-muted justify-center sm:justify-start">
+                  <span className="w-2 h-2 rounded-full bg-electric-lime animate-pulse shrink-0" />
+                  <span>DIRECT TO THARUND2108@GMAIL.COM</span>
+                </div>
 
-                <MagneticButton
-                  type="submit"
-                  disabled={formStatus === 'sending'}
-                  className={`w-full sm:w-auto px-6 py-3 rounded-full font-mono text-xs font-bold uppercase tracking-wider transition-colors flex items-center justify-center gap-2 ${
-                    formStatus === 'sending'
-                      ? 'bg-dark-surface border border-electric-lime text-electric-lime cursor-wait'
-                      : formStatus === 'success'
-                      ? 'bg-white text-black'
-                      : 'bg-electric-lime text-black hover:bg-white'
-                  }`}
-                >
-                  {formStatus === 'sending' ? (
-                    <>
-                      <Loader2 size={14} className="animate-spin" />
-                      <span>Transmitting...</span>
-                    </>
-                  ) : formStatus === 'success' ? (
-                    <>
-                      <Check size={14} />
-                      <span>Transmitted!</span>
-                    </>
-                  ) : (
-                    <>
-                      <Send size={14} />
-                      <span>Transmit Message</span>
-                    </>
-                  )}
-                </MagneticButton>
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={handleDirectGmail}
+                    className="px-4 py-2.5 rounded-full bg-dark-surface border border-dark-border hover:border-electric-lime text-white font-mono text-xs font-semibold tracking-wider uppercase transition-colors flex items-center justify-center gap-1.5"
+                  >
+                    <span>Send via Gmail ↗</span>
+                  </button>
+
+                  <MagneticButton
+                    type="submit"
+                    className="px-6 py-2.5 rounded-full bg-electric-lime text-black font-mono text-xs font-bold uppercase tracking-wider hover:bg-white transition-colors flex items-center justify-center gap-2 shadow-lg"
+                  >
+                    <Send size={14} />
+                    <span>Transmit Message</span>
+                  </MagneticButton>
+                </div>
               </div>
             </form>
           </div>
